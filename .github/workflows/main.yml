@@ -18,7 +18,7 @@ jobs:
         distribution: 'temurin'
     
     - name: Build with Java Compiler
-      run: javac Main.java
+      run: find . -name "Main.java" -exec javac {} +
 
   deploy:
     needs: build
