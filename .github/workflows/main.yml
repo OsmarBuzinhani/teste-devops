@@ -1,0 +1,28 @@
+name: Java CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "desenvolvimento" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Build with Java Compiler
+      run: javac Main.java
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Simulating Continuous Deployment
+      run: echo "O deploy foi realizado com sucesso no servidor de produção!"
