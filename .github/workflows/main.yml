@@ -40,11 +40,8 @@ jobs:
   discord:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Run Discord Webhook
-        uses: mrrobotdotapp/classic-discord-webhook@main
+      - name: Enviar Notificação
+        uses: appleboy/discord-action@master
         with:
-          id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-          token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-          #threadId: ${{ secrets.DISCORD_WEBHOOK_THREAD_ID }} # Optional
+          url: ${{ secrets.DISCORD_WEBHOOK }}
+          message: "O deploy foi concluído com sucesso! ✅"
