@@ -36,3 +36,13 @@ jobs:
     steps:
     - name: Simulating Continuous Deployment
       run: echo "Deploy executado com sucesso no servidor!"
+
+  discord:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Discord Webhook
+        uses: johnnyhuy/actions-discord-git-webhook@main
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
