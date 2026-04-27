@@ -41,14 +41,12 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0 
-
-      - name: Discord Commits
-        uses: Sniddl/discord-commits@v1.8
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          template: "avatar-with-link"
-          include-extras: true
+      - name: Enviar Notificação para o Discord
+        uses: rtCamp/action-discord-notifier@v1
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_USERNAME: "GitHub Bot"
+          DISCORD_AVATAR: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+          DISCORD_TITLE: "Status do Pipeline: ${{ github.workflow }}"
+          DISCORD_MESSAGE: "O deploy foi concluído com sucesso! 🚀"
+          DISCORD_COLOR: "#28a745" # Cor verde para sucesso
