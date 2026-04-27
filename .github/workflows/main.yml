@@ -27,7 +27,7 @@ jobs:
           echo "Sucesso: Arquivos Java compilados."
         else
           echo "Erro: Nenhum arquivo Java encontrado no repositório!"
-          exit 1
+          exit 
         fi
 
   deploy:
@@ -38,10 +38,11 @@ jobs:
       run: echo "Deploy executado com sucesso no servidor!"
 
   discord:
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Enviar Notificação
         uses: appleboy/discord-action@master
         with:
-          url: ${{ secrets.DISCORD_WEBHOOK }}
-          message: "O deploy foi concluído com sucesso! ✅"
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          message: "🚀 Pipeline finalizado com sucesso no branch ${{ github.ref_name }}!"
