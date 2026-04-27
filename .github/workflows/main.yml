@@ -38,15 +38,13 @@ jobs:
       run: echo "Deploy executado com sucesso no servidor!"
 
   discord:
-    needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Enviar Notificação para o Discord
-        uses: rtCamp/action-discord-notifier@v1
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_USERNAME: "GitHub Bot"
-          DISCORD_AVATAR: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-          DISCORD_TITLE: "Status do Pipeline: ${{ github.workflow }}"
-          DISCORD_MESSAGE: "O deploy foi concluído com sucesso! 🚀"
-          DISCORD_COLOR: "#28a745" # Cor verde para sucesso
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run Discord Webhook
+        uses: mrrobotdotapp/classic-discord-webhook@main
+        with:
+          id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          #threadId: ${{ secrets.DISCORD_WEBHOOK_THREAD_ID }} # Optional
